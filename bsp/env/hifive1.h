@@ -17,6 +17,11 @@
 #define RED_LED_OFFSET   22
 #define GREEN_LED_OFFSET 19
 #define BLUE_LED_OFFSET  21
+#define CK_IO_8_OFFSET  0
+#define LED_0_R_OFFSET  1
+#define LED_0_G_OFFSET  2
+#define LED_0_B_OFFSET  3
+#define CK_IO_12_OFFSET  4
 
 // These are the GPIO bit offsets for the differen digital pins
 // on the headers for both the HiFive1 Board and the Freedom E300 Arty FPGA Dev Kit.

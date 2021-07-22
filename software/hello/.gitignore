@@ -1,1 +1,6 @@
-hello
+hello.bin
+hello.elf
+hello.hex
+hello.lst
+hello.o
+libwrap.a

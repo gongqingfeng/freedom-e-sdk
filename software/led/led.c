@@ -43,7 +43,7 @@ const char * instructions_msg = " \
                    55555\n\
                      5\n\
 \n\
-SandSilicon Ebaz4205 FPGA Board 'hello' program.\n\
+SandSilicon Ebaz4205 FPGA Board 'led' program.\n\
  ";
 
 void print_instructions() {
@@ -54,7 +54,10 @@ int main()
 {
   uart_init(115200);
   print_instructions();
-  puts("Hello RISC-V Freedom E300!\n");
+  GPIO_REG(GPIO_INPUT_EN)    &= ~((0x1<< LED_0_R_OFFSET) | (0x1 << LED_0_G_OFFSET) | (0x1 << LED_0_B_OFFSET) | (0x1 << CK_IO_12_OFFSET)) ;
+  GPIO_REG(GPIO_OUTPUT_EN)   |=  ((0x1<< LED_0_R_OFFSET) | (0x1 << LED_0_B_OFFSET) | (0x1 << CK_IO_12_OFFSET)) ;
+  //GPIO_REG(GPIO_OUTPUT_VAL)  |=   (0x1 << LED_0_R_OFFSET) ;
+  //GPIO_REG(GPIO_OUTPUT_VAL)  &=  ~((0x1<< RED_LED_OFFSET) | (0x1<< GREEN_LED_OFFSET) | (0x1 << BLUE_LED_OFFSET) | (0x1 << LED_0_R_OFFSET)) ;
   while(1);
   return 0;
 }

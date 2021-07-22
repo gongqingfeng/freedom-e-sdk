@@ -12,8 +12,8 @@ ENV_DIR = $(BSP_BASE)/env
 PLATFORM_DIR = $(ENV_DIR)/$(BOARD)
 
 ASM_SRCS += $(ENV_DIR)/start.S
-ASM_SRCS += $(ENV_DIR)/entry.S
-C_SRCS += $(PLATFORM_DIR)/init.c
+# ASM_SRCS += $(ENV_DIR)/entry.S
+# C_SRCS += $(PLATFORM_DIR)/init.c
 
 LINKER_SCRIPT := $(PLATFORM_DIR)/$(LINK_TARGET).lds
 
@@ -33,15 +33,44 @@ C_OBJS := $(C_SRCS:.c=.o)
 LINK_OBJS += $(ASM_OBJS) $(C_OBJS)
 LINK_DEPS += $(LINKER_SCRIPT)
 
-CLEAN_OBJS += $(TARGET) $(LINK_OBJS)
+CLEAN_OBJS += $(TARGET) $(LINK_OBJS) $(TARGET).bin $(TARGET).hex $(TARGET).elf $(TARGET).lst
 
 CFLAGS += -g
 CFLAGS += -march=$(RISCV_ARCH)
 CFLAGS += -mabi=$(RISCV_ABI)
 CFLAGS += -mcmodel=medany
 
-$(TARGET): $(LINK_OBJS) $(LINK_DEPS)
-	$(CC) $(CFLAGS) $(INCLUDES) $(LINK_OBJS) -o $@ $(LDFLAGS)
+OBJCOPY := $(abspath $(RISCV_PATH)/bin/riscv64-unknown-elf-objcopy)
+OBJDUMP := $(abspath $(RISCV_PATH)/bin/riscv64-unknown-elf-objdump)
+
+elf := $(TARGET).elf
+$(elf): $(LINK_OBJS) $(LINK_DEPS)
+	$(CC) $(CFLAGS) $(INCLUDES) $(LINK_OBJS) -o $(TARGET).elf $(LDFLAGS)
+
+.PHONY: elf
+elf: $(elf)
+
+bin := $(TARGET).bin
+$(bin): $(TARGET).elf
+	$(OBJCOPY) -O binary $(TARGET).elf $@
+
+.PHONY: bin
+bin: $(bin)
+
+lst := $(TARGET).lst
+$(lst) :$(TARGET).elf
+	$(OBJDUMP) --source --all-headers --demangle --line-numbers --wide $< > $@
+
+hex := $(TARGET).hex
+$(hex): $(bin) $(lst)
+	od -t x4 -An -w4 -v $< > $@
+
+.PHONY: hex
+hex: $(hex)
+
+$(TARGET): $(elf) $(bin) $(hex) $(lst)
+	echo "$(TARGET) is $(TARGET).elf"
+
 
 $(ASM_OBJS): %.o: %.S $(HEADERS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<

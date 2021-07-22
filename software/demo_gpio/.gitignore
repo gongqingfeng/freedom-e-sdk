@@ -1,1 +1,6 @@
-demo_gpio
+demo_gpio.bin
+demo_gpio.elf
+demo_gpio.hex
+demo_gpio.lst
+demo_gpio.o
+libwrap.a

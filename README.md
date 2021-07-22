@@ -2,10 +2,9 @@
 
 This repository, maintained by SiFive, Inc, makes it easy to get started developing software for the Freedom E RISC-V platform.
 
-This branch contains the legacy v1_0 version. It's mostly useful now as including software for/shipped with
-the original HiFive1.
+This ebaz4205 branch came from the legacy v1_0 version. It's mostly useful now as including software for/shipped with
+the Ebaz4205 FPGA Board.
 
-New development since September 2018 is on the master branch.
 
 ### Contents ###
 
@@ -19,7 +18,7 @@ New development since September 2018 is on the master branch.
 First, clone this repository:
 
 ```
-git clone --recursive -b v1_0 https://github.com/sifive/freedom-e-sdk.git
+git clone --recursive -b ebaz4205 https://github.com/gongqingfeng/freedom-e-sdk.git
 ```
 
 To see Makefile options:
@@ -28,22 +27,6 @@ To see Makefile options:
 cd freedom-e-sdk
 make help
 ```
-
-#### Building Tools from Source ####
-
-Ubuntu packages needed:
-
-	$ sudo apt-get install autoconf automake libmpc-dev libmpfr-dev libgmp-dev gawk bison flex texinfo libtool libusb-1.0-0-dev make g++ pkg-config libexpat1-dev zlib1g-dev  
-
-Next, build the tools:
-
-```
-cd freedom-e-sdk
-make tools [BOARD=freedom-e300-hifive1]
-```
-
-If your machine has enough resources, you can speed up the build process by adding `-j n` to `make`, where `n` is the number of processors of your build system.
-
 
 #### Using Pre-Built Binary Tools ####
 
@@ -67,29 +50,13 @@ export RISCV_OPENOCD_PATH=/my/desired/location/openocd
 export RISCV_PATH=/my/desired/location/riscv64-unknown-elf-gcc-<date>-<version>
 ```
 
-### Updating your SDK ###
-
-If you'd like to update your SDK to the latest version:
-
-```
-cd freedom-e-sdk
-git pull origin master
-git submodule update --init --recursive
-```
-
-If you would like to recompile the entire toolchain after performing the above:
-
-```
-make uninstall
-make tools
-```
 ### Using the Tools ###
 
 To compile a bare-metal RISC-V program:
 
 ```
 cd freedom-e-sdk
-make software [PROGRAM=demo_gpio] [BOARD=freedom-e300-hifive1]
+make software [PROGRAM=hello] [BOARD=freedom-e300-ebaz4205]
 ```
 
 Run `make help` for more commands.
@@ -101,8 +68,8 @@ Run `make help` for more commands.
 After setting up the software and debug toolchains, you can build and
 execute everyone's favorite benchmark as follows:
 
-- Compile the benchmark with the command `make software BOARD=freedom-e300-hifive1 PROGRAM=dhrystone LINK_TARGET=dhrystone`. Note that a slightly different linker file is used for Dhrystone which stores read only data in DTIM instead of external flash.
-- Run on the HiFive1 board with the command `make upload BOARD=freedom-e300-hifive1 PROGRAM=dhrystone`.
+- Compile the benchmark with the command `make software BOARD=freedom-e300-ebaz4205 PROGRAM=dhrystone LINK_TARGET=dhrystone`. Note that a slightly different linker file is used for Dhrystone which stores read only data in DTIM instead of external flash.
+- Run on the HiFive1 board with the command `make upload BOARD=freedom-e300-ebaz4205 PROGRAM=dhrystone`.
   This will take a few minutes.  Sample output is provided below.
 - Compute DMIPS by dividing the Dhrystones per Second result by 1757, which
   was the VAX 11/780's performance.  In the example below, 729927 / 1757 =
