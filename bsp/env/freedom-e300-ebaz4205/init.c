@@ -70,16 +70,10 @@ uintptr_t handle_trap(uintptr_t mcause, uintptr_t epc)
   }
   return epc;
 }
-
-void _init()
+*/
+void init()
 {
-  #ifndef NO_INIT
   uart_init(115200);
-
-  printf("core freq at %d Hz\n", get_cpu_freq());
-
-  write_csr(mtvec, &trap_entry);
-  #endif
 }
 
 void _fini()

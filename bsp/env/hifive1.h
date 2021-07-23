@@ -14,9 +14,9 @@
 // FPGA
 // Dev Kit.
 
-#define RED_LED_OFFSET   22
-#define GREEN_LED_OFFSET 19
-#define BLUE_LED_OFFSET  21
+#define RED_LED_OFFSET   1
+#define GREEN_LED_OFFSET 2
+#define BLUE_LED_OFFSET  3
 #define CK_IO_8_OFFSET  0
 #define LED_0_R_OFFSET  1
 #define LED_0_G_OFFSET  2

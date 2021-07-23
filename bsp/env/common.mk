@@ -12,8 +12,8 @@ ENV_DIR = $(BSP_BASE)/env
 PLATFORM_DIR = $(ENV_DIR)/$(BOARD)
 
 ASM_SRCS += $(ENV_DIR)/start.S
-# ASM_SRCS += $(ENV_DIR)/entry.S
-# C_SRCS += $(PLATFORM_DIR)/init.c
+ASM_SRCS += $(ENV_DIR)/entry.S
+C_SRCS += $(PLATFORM_DIR)/init.c
 
 LINKER_SCRIPT := $(PLATFORM_DIR)/$(LINK_TARGET).lds
 

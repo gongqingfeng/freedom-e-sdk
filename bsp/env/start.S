@@ -77,6 +77,7 @@ _start:
 	sd ra, 8(sp)
 #endif
 
+    call init
 	/* argc = argv = 0 */
 	li a0, 0
 	li a1, 0

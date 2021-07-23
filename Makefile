@@ -13,7 +13,8 @@ endif
 
 # Default target
 BOARD ?= freedom-e300-ebaz4205
-PROGRAM ?= led
+PROGRAM ?= hello
+# PROGRAM ?= led
 # PROGRAM ?= demo_gpio
 LINK_TARGET ?= flash
 GDB_PORT ?= 3333
